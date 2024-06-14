@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.semarchy.khufu</groupId>
-	<artifactId>artifact-repository</artifactId>
+	<artifactId>artifact-repository-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>artifact-repository</name>
+	<name>artifact-repository-parent</name>
 	<packaging>pom</packaging>
 	
 	<modules>
