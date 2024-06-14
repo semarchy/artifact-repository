@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "c65c0716-c90b-4451-9eac-db0dbfb1649d",
-		"name": "artifact-repository-frontend",
+		"name": "connector-repository",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32852848"
 	},
@@ -10,19 +10,7 @@
 			"name": "get artifact versions",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [
@@ -54,19 +42,7 @@
 			"name": "upload artifact",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [
