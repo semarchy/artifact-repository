@@ -8,6 +8,9 @@
 	"item": [
 		{
 			"name": "get artifact versions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -19,8 +22,17 @@
 						"value": "application/json"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"artifactName\": \"core\",\r\n  \"artifactType\": \"generationBundle\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/core/zip",
+					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/versions",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -31,8 +43,7 @@
 						"connectorRepository",
 						"v1",
 						"artifacts",
-						"core",
-						"zip"
+						"versions"
 					]
 				}
 			},
@@ -58,11 +69,26 @@
 							"key": "file",
 							"type": "file",
 							"src": "/C:/Users/Fabien Dezempte/Downloads/core.zip"
+						},
+						{
+							"key": "artifactName",
+							"value": "core",
+							"type": "text"
+						},
+						{
+							"key": "artifactType",
+							"value": "generationBundle",
+							"type": "text"
+						},
+						{
+							"key": "artifactVersion",
+							"value": "3.0.0",
+							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/core/zip/2.0.0",
+					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -73,9 +99,7 @@
 						"connectorRepository",
 						"v1",
 						"artifacts",
-						"core",
-						"zip",
-						"2.0.0"
+						"upload"
 					]
 				}
 			},
@@ -83,11 +107,23 @@
 		},
 		{
 			"name": "get artifact data",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"artifactName\": \"core\",\r\n  \"artifactType\": \"generationBundle\",\r\n  \"artifactVersion\": \"1.0.0\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/core/zip/1.0.0",
+					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/download",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -98,9 +134,42 @@
 						"connectorRepository",
 						"v1",
 						"artifacts",
-						"core",
-						"zip",
-						"1.0.0"
+						"download"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get artifacts according to requirements",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"artifactName\": \"core\",\r\n    \"artifactType\": \"generationBundle\",\r\n    \"artifactVersion\": \"1.0.0\"\r\n  },\r\n  {\r\n    \"artifactName\": \"rdbms\",\r\n    \"artifactType\": \"runtimeBundle\",\r\n    \"artifactVersion\": \"1.0.0\"\r\n  }  \r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/connectorRepository/v1/artifacts/downloadByRequirements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"connectorRepository",
+						"v1",
+						"artifacts",
+						"downloadByRequirements"
 					]
 				}
 			},
