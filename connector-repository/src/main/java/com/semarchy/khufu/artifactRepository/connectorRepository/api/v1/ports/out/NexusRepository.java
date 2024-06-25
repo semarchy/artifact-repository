@@ -6,13 +6,17 @@ import java.util.List;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 
+import com.semarchy.khufu.artifactRepository.connectorRepository.api.v1.application.ConnectorRepositoryController.ArtifactRequest;
+
 public interface NexusRepository {
 
-	ResponseEntity<List<String>> getArtifactVersions(String artifactName, String artifactType);
+	List<String> getArtifactVersions(String artifactName, String artifactType)  throws Exception;
 
 	ResponseEntity<InputStreamResource> downloadArtifact(String artifactName, String artifactType,
-			String artifactVersion);
+			String artifactVersion)  throws Exception;
 
-	void uploadArtifact(InputStream artifactStream, String artifactName, String artifactType, String artifactVersion);
+	ResponseEntity<Object> uploadArtifact(InputStream artifactStream, String artifactName, String artifactType, String artifactVersion) throws Exception;
+
+	ResponseEntity<InputStreamResource> downloadArtifacts(List<ArtifactRequest> artifactRequestList)  throws Exception;;
 
 }
