@@ -20,9 +20,11 @@ import com.semarchy.khufu.artifactRepository.infrastructure.persistence.Artifact
 import com.semarchy.khufu.artifactRepository.infrastructure.persistence.NexusRepositoryImpl;
 
 @RestController
-@RequestMapping("/api/connectorRepository/v1")
+@RequestMapping(ConnectorRepositoryController.API_CONNECTOR_REPOSITORY_V1)
 public class ConnectorRepositoryController implements ArtifactRepository {
-
+	
+	public static final String API_CONNECTOR_REPOSITORY_V1 = "/api/connectorRepository/v1";
+	
 	@Autowired
 	private final NexusRepository nexusService;
 
