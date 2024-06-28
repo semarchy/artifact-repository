@@ -1,4 +1,4 @@
-package com.semarchy.khufu.artifactRepository.infrastructure.persistence;
+package com.semarchy.khufu.artifactRepository.connectorRepository.infrastructure.persistence.v1;
 
 public class UnexistingArtifactTypeException extends Exception {
 

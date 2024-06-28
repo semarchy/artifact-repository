@@ -1,4 +1,4 @@
-package com.semarchy.khufu.artifactRepository.infrastructure.persistence;
+package com.semarchy.khufu.artifactRepository.connectorRepository.infrastructure.persistence.v1;
 public class NexusContants {
 
     public static final String DOWNLOAD_ARTIFACT_NEXUS_V1_API_URL = "/v1/search/assets/download";

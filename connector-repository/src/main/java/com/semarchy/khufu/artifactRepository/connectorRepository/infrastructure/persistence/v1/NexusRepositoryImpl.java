@@ -1,4 +1,4 @@
-package com.semarchy.khufu.artifactRepository.infrastructure.persistence;
+package com.semarchy.khufu.artifactRepository.connectorRepository.infrastructure.persistence.v1;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +28,11 @@ import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
-import com.semarchy.khufu.artifactRepository.connectorRepository.api.v1.application.ConnectorRepositoryController.ArtifactRequest;
-import com.semarchy.khufu.artifactRepository.connectorRepository.api.v1.ports.out.NexusRepository;
+import com.semarchy.khufu.artifactRepository.connectorRepository.ports.in.v1.ConnectorRepositoryController.ArtifactRequest;
+import com.semarchy.khufu.artifactRepository.connectorRepository.domain.service.v1.*;
 
 @Repository
-public class NexusRepositoryImpl implements NexusRepository {
+public class NexusRepositoryImpl implements ArtifactService {
 
 	private final Logger logger = LogManager.getLogger(getClass());
 	private final List<String> ALLOWED_NEXUS_FILE_TYPES = Collections.unmodifiableList(Arrays.asList(ZIP_FILE_TYPE));
@@ -67,6 +66,7 @@ public class NexusRepositoryImpl implements NexusRepository {
 	@Autowired
 	private final RestTemplate restTemplate;
 
+	@Autowired
 	public NexusRepositoryImpl(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
@@ -156,8 +156,7 @@ public class NexusRepositoryImpl implements NexusRepository {
 				.body(new InputStreamResource(byteArrayInputStream));
 	}
 
-	@Override
-	public ResponseEntity<InputStreamResource> downloadArtifact(String artifactName, String artifactType,
+	private ResponseEntity<InputStreamResource> downloadArtifact(String artifactName, String artifactType,
 			String artifactVersion) {
 		try {
 			String nexusArtifactType = getNexusArtifactType(artifactType);
@@ -195,7 +194,8 @@ public class NexusRepositoryImpl implements NexusRepository {
 			ByteArrayInputStream artifactStream = restTemplate.execute(searchUrl, HttpMethod.GET, requestCallback,
 					responseExtractor);
 			if (artifactStream == null) {
-				String errorMessage =  String.format("{} artifact stream is null.", artifactName);;
+				String errorMessage = String.format("{} artifact stream is null.", artifactName);
+				;
 				logger.error(errorMessage);
 				throw new ArtifactNotFoundException(errorMessage);
 			}
@@ -269,14 +269,12 @@ public class NexusRepositoryImpl implements NexusRepository {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
 			if (!response.getStatusCode().is2xxSuccessful()) {
-				String errorMessage = String.format("An error occurred while uploading %s artifact",
-						artifactName);
+				String errorMessage = String.format("An error occurred while uploading %s artifact", artifactName);
 				logger.error(errorMessage + ". Status code: " + response.getStatusCode());
 				throw new RuntimeException(errorMessage);
 			}
 		} catch (Exception e) {
-			String errorMessage = String.format("An error occurred while uploading %s artifact",
-					artifactName);
+			String errorMessage = String.format("An error occurred while uploading %s artifact", artifactName);
 			logger.error(errorMessage, e);
 			throw new RuntimeException(errorMessage);
 		}

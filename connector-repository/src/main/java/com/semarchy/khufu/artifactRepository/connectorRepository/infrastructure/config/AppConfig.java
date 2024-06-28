@@ -1,4 +1,4 @@
-package com.semarchy.khufu.artifactRepository.infrastructure.config;
+package com.semarchy.khufu.artifactRepository.connectorRepository.infrastructure.config;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
